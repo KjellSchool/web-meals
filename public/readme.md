@@ -77,3 +77,17 @@ The error I get: permitted on the root route in SPA Mode. See https://reactroute
 
 **Implementation Details:**
 - Removed `HydrateFallback` from `app/layouts/sidebar.tsx`. In React Router v7 SPA mode (`ssr: false`), hydration fallbacks are strictly only permitted to be exported from the very top-level `app/root.tsx` file, causing a build freeze if they appear in any sub-routes or child layouts.
+
+## Dev Diary Step
+**Prompt:**
+I got a new error: Oops! getRecipe is not defined...
+
+**Implementation Details:**
+- Fixed missing `getRecipe` import in `app/routes/recipe.tsx`. When a formatting tool updated the top of the file, the data import was dropped, causing the runtime reference error.
+
+## Dev Diary Step
+**Prompt:**
+It works, but the styling is bad now
+
+**Implementation Details:**
+- Restored `<div id="contact">` in `app/routes/recipe.tsx` instead of `<div id="recipe">`. The tutorial app.css rigidly targets the exact ID `#contact` for layout, flex grids, and nested forms to perfectly align with their boilerplate!
