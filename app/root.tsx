@@ -62,7 +62,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="pt-16 p-4 container mx-auto" id="error-page">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
@@ -71,5 +71,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         </pre>
       )}
     </main>
+  );
+}
+
+export function HydrateFallback() {
+  return (
+    <div id="loading-splash">
+      <div id="loading-splash-spinner" />
+      <p>Loading, please wait...</p>
+    </div>
   );
 }
