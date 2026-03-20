@@ -1,5 +1,6 @@
 import { Form, useFetcher } from "react-router";
 import type { Route } from "./+types/recipe";
+import { getRecipe } from "../data";
 import appStylesHref from "../app.css?url";
 
 export const links: Route.LinksFunction = () => [
@@ -23,7 +24,7 @@ export default function Recipe({
     const { recipe } = loaderData;
 
     return (
-        <div id="recipe">
+        <div id="contact">
             <div>
                 <img
                     alt={`${recipe.strMeal} avatar`}
