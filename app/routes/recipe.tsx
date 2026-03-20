@@ -1,5 +1,11 @@
 import { Form, useFetcher } from "react-router";
 import type { Route } from "./+types/recipe";
+import appStylesHref from "../app.css?url";
+
+export const links: Route.LinksFunction = () => [
+    { rel: "stylesheet", href: appStylesHref },
+];
+
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${params.recipeId}`);
