@@ -1,6 +1,11 @@
 import { Form, useFetcher } from "react-router";
 import type { Route } from "./+types/recipe";
-import { getRecipe } from "../data";
+import appStylesHref from "../app.css?url";
+
+export const links: Route.LinksFunction = () => [
+    { rel: "stylesheet", href: appStylesHref },
+];
+
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
     const recipe = await getRecipe(params.recipeId);
