@@ -1,4 +1,5 @@
 import { Form, Link, NavLink, Outlet, useNavigation, useSubmit, } from "react-router";
+import { getRecipes } from "../data";
 import type { Route } from "./+types/sidebar";
 import { useEffect, useState } from "react";
 
@@ -7,9 +8,7 @@ export async function clientLoader({
 }: Route.ClientLoaderArgs) {
     const url = new URL(request.url);
     const q = url.searchParams.get("q");
-    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${q || ""}`);
-    const data = await res.json();
-    const recipes = data.meals || [];
+    const recipes = await getRecipes(q);
     return { recipes, q };
 }
 

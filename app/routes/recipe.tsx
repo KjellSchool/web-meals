@@ -1,15 +1,15 @@
 import { Form, useFetcher } from "react-router";
 import type { Route } from "./+types/recipe";
+import { getRecipe } from "../data";
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
-    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${params.recipeId}`);
-    const data = await res.json();
+    const recipe = await getRecipe(params.recipeId);
 
-    if (!data.meals || data.meals.length === 0) {
+    if (!recipe) {
         throw new Response("Not Found", { status: 404 });
     }
 
-    return { recipe: data.meals[0] };
+    return { recipe };
 }
 
 export default function Recipe({

@@ -52,3 +52,28 @@ I added a folder called "react-router-tutorial". Look into the contacts file and
 - Created app/layouts/sidebar.tsx mimicking the tutorial sidebar exactly, but querying the API for recipes and using clientLoader.
 - Refactored app/root.tsx to strictly act as the app shell mimicking the tutorial, moving the sidebar mapping logic into app/layouts/sidebar.tsx.
 - Flattened app/routes/recipe.tsx and app/routes/home.tsx design strings and IDs to visually match the tutorial boilerplate.
+
+## Dev Diary Step
+**Prompt:**
+Look at the adress book tutorial again. There is no data in the recipe project yet, what is up with that? Make sure it works exactly like the adress book tutorial works
+
+**Implementation Details:**
+- Created `app/data.ts` customized for recipes but mirroring the exact API structure of the tutorial's fake database using local variables blended with MealDB API fetches.
+- Reconfigured `app/layouts/sidebar.tsx` and `app/routes/recipe.tsx` to use `getRecipes` and `getRecipe` functions strictly from `data.ts`, exactly like the tutorial.
+- Used standard `clientLoader` pattern ensuring all data mapping and inference matches standard RRv7 SPA semantics.
+- Filtered the `react-router-tutorial` directory out of `tsconfig.json` to ensure unpolluted typechecks on the main workspace.
+
+## Dev Diary Step
+**Prompt:**
+This is what I see now (Image of Vite error: SPA Mode: 1 invalid route export(s) in 'layouts/sidebar.tsx': 'loader').
+
+**Implementation Details:**
+- Converted the `loader` export in `sidebar.tsx` back to `clientLoader` as React Router 7 fundamentally rejects server-based `loader` methods when SPA mode (`ssr: false`) is enabled.
+- Verified `npx react-router typegen` infers `loaderData` securely directly from the `clientLoader` without manual typescript assertions now that SPA mode is fully acknowledged by the project constraints.
+
+## Dev Diary Step
+**Prompt:**
+The error I get: permitted on the root route in SPA Mode. See https://reactrouter.com/how-to/spa for more information...
+
+**Implementation Details:**
+- Removed `HydrateFallback` from `app/layouts/sidebar.tsx`. In React Router v7 SPA mode (`ssr: false`), hydration fallbacks are strictly only permitted to be exported from the very top-level `app/root.tsx` file, causing a build freeze if they appear in any sub-routes or child layouts.
